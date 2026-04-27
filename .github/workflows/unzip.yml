@@ -3,12 +3,18 @@ on: [push]
 jobs:
   unzip:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Unzip files
         run: |
           unzip -o "Khizra_Portfolio (2).zip"
           rm "Khizra_Portfolio (2).zip"
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Unzipped portfolio files
+      - name: Commit files
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add.
+          git commit -m "Unzipped portfolio files"
+          git push
